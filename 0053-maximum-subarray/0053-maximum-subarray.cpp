@@ -19,15 +19,28 @@ public:
             curMax[i] = max(curMax[i - 1] + nums[i], nums[i])
         */
         
-        vector<int> curMax(nums.begin(), nums.end());
-        vector<int> totalMax(nums.size(), nums[0]);
+        // 위 논리를 그대로 코드로 나타내면 아래와 같다..
+        // vector<int> curMax(nums.begin(), nums.end());
+        // vector<int> totalMax(nums.size(), nums[0]);
         
+        // for (int i = 1; i < nums.size(); i++) {
+            
+        //     curMax[i] = max(curMax[i - 1] + nums[i], nums[i]);
+        //     totalMax[i] = max(totalMax[i - 1], curMax[i]);
+        // }
+        
+        // return totalMax[nums.size() - 1];
+
+
+        // for 문을 보면 i - 1 인덱스 값만 사용하는 것을 볼 수 있다. 따라서 아래와 같이 변경 (공간 최적화)
+        int curMax = nums[0];
+        int answer = nums[0];
         for (int i = 1; i < nums.size(); i++) {
             
-            curMax[i] = max(curMax[i - 1] + nums[i], nums[i]);
-            totalMax[i] = max(totalMax[i - 1], curMax[i]);
+            curMax = max(curMax + nums[i], nums[i]);
+            answer = max(answer, curMax);
         }
-        
-        return totalMax[nums.size() - 1];
+
+        return answer;
     }
 };
